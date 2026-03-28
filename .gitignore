@@ -10,4 +10,4 @@ venv/
 build/
 dist/
 *.egg-info/
-.streamlit/
+# .streamlit/
