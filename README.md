@@ -1,6 +1,6 @@
 # 1D Schrodinger Solver Web App
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/ishwrknt/schrodinger-solver-web/main/src/schrodinger_solver_web/app.py)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/ishwrknt/schrodinger-solver-web/main/streamlit_app.py)
 
 This side project is a standalone Python web app for exploring numerical solutions of the 1D time-independent Schrodinger equation in dimensionless units with `hbar = 1` and `m = 1`.
 
