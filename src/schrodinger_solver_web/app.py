@@ -4,9 +4,9 @@ import sys
 from pathlib import Path
 
 # Add the 'src' directory to sys.path for Streamlit Cloud
-src_path = str(Path(__file__).parents[2])
+src_path = str(Path(__file__).parents[1])
 if src_path not in sys.path:
-    sys.path.append(src_path)
+    sys.path.insert(0, src_path)
 
 from dataclasses import dataclass
 
