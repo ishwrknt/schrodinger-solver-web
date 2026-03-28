@@ -1,6 +1,13 @@
 from __future__ import annotations
 
 import sys
+from pathlib import Path
+
+# Add the 'src' directory to sys.path for Streamlit Cloud
+src_path = str(Path(__file__).parents[2])
+if src_path not in sys.path:
+    sys.path.append(src_path)
+
 from dataclasses import dataclass
 
 import streamlit as st
