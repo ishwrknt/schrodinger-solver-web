@@ -54,7 +54,7 @@ TEMPLATES: dict[str, PotentialTemplate] = {
     "infinite_square_well": PotentialTemplate(
         template_id="infinite_square_well",
         label="Infinite Square Well",
-        description="Zero inside the well, very large walls outside. Benchmark comparison is available when the well spans the domain.",
+        description="Zero inside the well with zero wavefunction at the walls. The app uses the well edges as the solve domain.",
         parameters=(
             TemplateParameter("center", "Center", 0.0, step=0.1),
             TemplateParameter("width", "Well Width", 1.0, minimum=0.1, step=0.1),

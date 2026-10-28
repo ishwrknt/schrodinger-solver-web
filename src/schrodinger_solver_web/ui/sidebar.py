@@ -51,6 +51,16 @@ def render_sidebar() -> SidebarConfig:
     else:
         potential_definition = _render_piecewise_editor(x_min=x_min, x_max=x_max)
 
+    if (potential_definition.mode == InputMode.TEMPLATE
+            and potential_definition.template_id == "infinite_square_well"):
+        center = potential_definition.parameters["center"]
+        width = potential_definition.parameters["width"]
+        x_min, x_max = center - width / 2, center + width / 2
+        st.sidebar.caption(
+            f"Infinite-well walls set the solve domain to [{x_min:g}, {x_max:g}]. "
+            "The wavefunction is zero at each wall; wall height is unused."
+        )
+
     run_solver = st.sidebar.button("Solve", type="primary")
     return SidebarConfig(
         grid_spec=GridSpec(x_min=x_min, x_max=x_max, num_points=num_points, n_modes=n_modes),
@@ -71,6 +81,9 @@ def _render_template_editor() -> PotentialDefinition:
     base_definition = default_potential_definition(template_id)
     parameters: dict[str, float] = {}
     for parameter in template.parameters:
+        if template_id == "infinite_square_well" and parameter.key == "wall_height":
+            parameters[parameter.key] = parameter.default
+            continue
         parameters[parameter.key] = float(
             st.sidebar.number_input(
                 parameter.label,

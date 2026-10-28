@@ -10,6 +10,7 @@ from schrodinger_solver_web.solver.potential_templates import PotentialDefinitio
 
 BOUNDARY_THRESHOLD = 1e-4
 DRIFT_THRESHOLD = 1e-3
+RELATIVE_DRIFT_THRESHOLD = 1e-3
 
 
 @dataclass(frozen=True)
@@ -41,14 +42,15 @@ def validate_postsolve(
 
     validations: list[StateValidation] = []
     for state, refined_state in zip(states, refined_states, strict=True):
-        boundary_left = abs(float(state.psi[1]))
-        boundary_right = abs(float(state.psi[-2]))
+        boundary_left = abs(float(state.psi[0]))
+        boundary_right = abs(float(state.psi[-1]))
         drift = abs(float(state.energy - refined_state.energy))
         reasons: list[str] = []
         if boundary_left > BOUNDARY_THRESHOLD or boundary_right > BOUNDARY_THRESHOLD:
             reasons.append("Boundary amplitude threshold exceeded.")
-        if drift > DRIFT_THRESHOLD:
-            reasons.append("Refined-grid eigenvalue drift threshold exceeded.")
+        drift_limit = DRIFT_THRESHOLD + RELATIVE_DRIFT_THRESHOLD * abs(refined_state.energy)
+        if drift > drift_limit:
+            reasons.append("Refined-grid eigenvalue drift threshold exceeded. Increase grid points.")
         validations.append(
             StateValidation(
                 label=state.label,

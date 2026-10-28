@@ -82,6 +82,9 @@ def _render_result(result: SolveResult, compare_supported_benchmarks: bool) -> N
     accepted_count = sum(validation.accepted for validation in result.validations)
     rejected_count = len(result.validations) - accepted_count
     st.subheader("Solve Summary")
+    st.caption("Results describe the selected finite domain with zero wavefunction at its endpoints. "
+               "Validation checks these boundaries and energy convergence (absolute tolerance 0.001 "
+               "plus relative tolerance 0.1%). It does not establish an isolated bound state on an infinite domain.")
     st.write(f"Accepted states: {accepted_count} | Rejected states: {rejected_count}")
 
     title = (
